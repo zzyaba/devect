@@ -1,71 +1,73 @@
 #pragma once
 #include<initializer_list>
+#include<algorithm>
 namespace __devect_namespace{
 	using namespace std;
+	long long count,old_size;
 	template<typename Type>
 	struct devect{
 		struct iterator{
 			devect*fa;
 			long long sub;
-			bool operator!=(const iterator&x)const&{
-				return fa!=x.fa||sub!=x.sub;
+			bool operator!=(const iterator&x)const&noexcept{
+				return sub!=x.sub;
 			}
-			bool operator==(const iterator&x)const&{
-				return fa==x.fa&&sub==x.sub;
+			bool operator==(const iterator&x)const&noexcept{
+				return sub==x.sub;
 			}
-			bool operator<(const iterator&x)const&{
+			bool operator<(const iterator&x)const&noexcept{
 				return sub<x.sub;
 			}
-			bool operator<=(const iterator&x)const&{
+			bool operator<=(const iterator&x)const&noexcept{
 				return sub<=x.sub;
 			}
-			bool operator>(const iterator&x)const&{
+			bool operator>(const iterator&x)const&noexcept{
 				return sub>x.sub;
 			}
-			bool operator>=(const iterator&x)const&{
+			bool operator>=(const iterator&x)const&noexcept{
 				return sub>=x.sub;
 			}
-			Type&operator*()const{
+			Type&operator*()const noexcept{
 				return fa->dat[sub];
 			}
-			iterator operator+(long long x)const&{
+			iterator operator+(long long x)const&noexcept{
 				return{fa,sub+x};
 			}
-			iterator&operator++(){
+			iterator&operator++()noexcept{
 			    ++sub;
 				return*this;
 			}
-			iterator operator++(int){
+			iterator operator++(int)noexcept{
 				return{fa,sub++};
 			}
-			iterator&operator+=(long long x){
+			iterator&operator+=(long long x)noexcept{
 			    sub+=x;
 				return*this;
 			}
-			long long operator-(const iterator&x)const&{
+			long long operator-(const iterator&x)const&noexcept{
 				return sub-x.sub;
 			}
-			iterator operator-(long long x)const&{
+			iterator operator-(long long x)const&noexcept{
 				return{fa,sub-x};
 			}
-			iterator&operator--(){
+			iterator&operator--()noexcept{
 			    --sub;
 				return*this;
 			}
-			iterator operator--(int){
+			iterator operator--(int)noexcept{
 				return{fa,sub--};
 			}
-			iterator&operator-=(long long x){
+			iterator&operator-=(long long x)noexcept{
 			    sub-=x;
 				return*this;
 			}
-			Type*operator->()const{
+			Type*operator->()const noexcept{
 				return fa->dat+sub;
 			}
-			Type&operator*(long long x)const{
+			Type&operator*(long long x)const noexcept{
 				return fa->dat[sub+x];
 			}
-			operator Type*(){
+			operator Type*()noexcept{
 				return fa->dat+sub;
 			}
 		};
@@ -81,10 +83,10 @@ namespace __devect_namespace{
 				sub=x.sub;
 			}
 			bool operator!=(const const_iterator&x)const&{
-				return fa!=x.fa||sub!=x.sub;
+				return sub!=x.sub;
 			}
 			bool operator==(const const_iterator&x)const&{
-				return fa==x.fa&&sub==x.sub;
+				return sub==x.sub;
 			}
 			bool operator<(const const_iterator&x)const&{
 				return sub<x.sub;
@@ -98,44 +100,44 @@ namespace __devect_namespace{
 			bool operator>=(const const_iterator&x)const&{
 				return sub>=x.sub;
 			}
-			const Type&operator*()const{
+			const Type&operator*()const noexcept{
 				return fa->dat[sub];
 			}
-			const_iterator operator+(long long x)const&{
+			const_iterator operator+(long long x)const&noexcept{
 				return{fa,sub+x};
 			}
-			const_iterator&operator++(){
+			const_iterator&operator++()noexcept{
 			    ++sub;
 			    return*this;
 			}
-			const_iterator operator++(int){
+			const_iterator operator++(int)noexcept{
 				return{fa,sub++};
 			}
-			const_iterator&operator+=(long long x){
+			const_iterator&operator+=(long long x)noexcept{
 			    sub+=x;
 			    return*this;
 			}
 			long long operator-(const const_iterator&x)const&{
 				return sub-x.sub;
 			}
-			const_iterator operator-(long long x)const&{
+			const_iterator operator-(long long x)const&noexcept{
 				return{fa,sub-x};
 			}
-			const_iterator&operator--(){
+			const_iterator&operator--()noexcept{
 			    --sub;
 			    return*this;
 			}
-			const_iterator operator--(int){
+			const_iterator operator--(int)noexcept{
 				return{fa,sub--};
 			}
-			const_iterator&operator-=(long long x){
+			const_iterator&operator-=(long long x)noexcept{
 			    sub-=x;
                 return*this;
 			}
-			const Type*operator->()const{
+			const Type*operator->()const noexcept{
 				return fa->dat+sub;
 			}
-			const Type&operator*(long long x)const{
+			const Type&operator*(long long x)const noexcept{
 				return fa->dat[sub+x];
 			}
 			operator const Type*(){
@@ -146,10 +148,10 @@ namespace __devect_namespace{
 			devect*fa;
 			long long sub;
 			bool operator!=(const reverse_iterator&x)const&{
-				return fa!=x.fa||sub!=x.sub;
+				return sub!=x.sub;
 			}
 			bool operator==(const reverse_iterator&x)const&{
-				return fa==x.fa&&sub==x.sub;
+				return sub==x.sub;
 			}
 			bool operator<(const reverse_iterator&x)const&{
 				return sub>x.sub;
@@ -163,47 +165,47 @@ namespace __devect_namespace{
 			bool operator>=(const reverse_iterator&x)const&{
 				return sub<=x.sub;
 			}
-			Type&operator*()const{
+			Type&operator*()const noexcept{
 				return fa->dat[sub];
 			}
-			reverse_iterator operator+(long long x)const&{
+			reverse_iterator operator+(long long x)const&noexcept{
 				return{fa,sub-x};
 			}
-			reverse_iterator&operator++(){
+			reverse_iterator&operator++()noexcept{
 			    --sub;
 				return*this;
 			}
-			reverse_iterator operator++(int){
+			reverse_iterator operator++(int)noexcept{
 				return{fa,sub--};
 			}
-			reverse_iterator&operator+=(long long x){
+			reverse_iterator&operator+=(long long x)noexcept{
 			    sub-=x;
 				return*this;
 			}
 			long long operator-(const reverse_iterator&x)const&{
 				return sub+x.sub;
 			}
-			reverse_iterator operator-(long long x)const&{
+			reverse_iterator operator-(long long x)const&noexcept{
 				return{fa,sub+x};
 			}
-			reverse_iterator&operator--(){
+			reverse_iterator&operator--()noexcept{
 			    ++sub;
 				return*this;
 			}
-			reverse_iterator operator--(int){
+			reverse_iterator operator--(int)noexcept{
 				return{fa,sub++};
 			}
-			reverse_iterator&operator-=(long long x){
+			reverse_iterator&operator-=(long long x)noexcept{
 			    sub+=x;
 				return*this;
 			}
-			Type*operator->()const{
+			Type*operator->()const noexcept{
 				return fa->dat+sub;
 			}
-			Type&operator*(long long x)const{
+			Type&operator*(long long x)const noexcept{
 				return fa->dat[sub-x];
 			}
-			operator Type*(){
+			operator Type*()noexcept{
 				return fa->dat+sub;
 			}
 		};
@@ -219,10 +221,10 @@ namespace __devect_namespace{
 				sub=x.sub;
 			}
 			bool operator!=(const const_reverse_iterator&x)const&{
-				return fa!=x.fa||sub!=x.sub;
+				return sub!=x.sub;
 			}
 			bool operator==(const const_reverse_iterator&x)const&{
-				return fa==x.fa&&sub==x.sub;
+				return sub==x.sub;
 			}
 			bool operator<(const const_reverse_iterator&x)const&{
 				return sub>x.sub;
@@ -236,44 +238,44 @@ namespace __devect_namespace{
 			bool operator>=(const const_reverse_iterator&x)const&{
 				return sub<=x.sub;
 			}
-			const Type&operator*()const{
+			const Type&operator*()const noexcept{
 				return fa->dat[sub];
 			}
-			const_reverse_iterator operator+(long long x)const&{
+			const_reverse_iterator operator+(long long x)const&noexcept{
 				return{fa,sub-x};
 			}
-			const_reverse_iterator&operator++(){
+			const_reverse_iterator&operator++()noexcept{
 			    --sub;
 			    return*this;
 			}
-			const_reverse_iterator operator++(int){
+			const_reverse_iterator operator++(int)noexcept{
 				return{fa,sub--};
 			}
-			const_reverse_iterator&operator+=(long long x){
+			const_reverse_iterator&operator+=(long long x)noexcept{
 			    sub-=x;
 			    return*this;
 			}
 			long long operator-(const const_reverse_iterator&x)const&{
 				return sub-x.sub;
 			}
-			const_reverse_iterator operator-(long long x)const&{
+			const_reverse_iterator operator-(long long x)const&noexcept{
 				return{fa,sub+x};
 			}
-			const_reverse_iterator&operator--(){
+			const_reverse_iterator&operator--()noexcept{
 			    ++sub;
 			    return*this;
 			}
-			const_reverse_iterator operator--(int){
+			const_reverse_iterator operator--(int)noexcept{
 				return{fa,sub++};
 			}
-			const_reverse_iterator&operator-=(long long x){
+			const_reverse_iterator&operator-=(long long x)noexcept{
 			    sub+=x;
 			    return*this;
 			}
-			const Type*operator->()const{
+			const Type*operator->()const noexcept{
 				return fa->dat+sub;
 			}
-			const Type&operator*(long long x)const{
+			const Type&operator*(long long x)const noexcept{
 				return fa->dat[sub-x];
 			}
 			operator const Type*(){
@@ -302,22 +304,22 @@ namespace __devect_namespace{
 			tmp=dat=new Type[len=init_list.size()];
 			for(const Type*i=init_list.begin();i!=init_list.end();*(tmp++)=*(i++));
 		}
-		Type&at(long long position){
+		Type&at(long long position)noexcept{
 			return dat[lsiz+position];
 		}
-		const Type&at(long long position)const{
+		const Type&at(long long position)const noexcept{
 			return dat[lsiz+position];
 		}
-		Type&back(){
+		Type&back()noexcept{
 			return dat[rsiz];
 		}
-		const Type&back()const{
+		const Type&back()const noexcept{
 			return dat[rsiz];
 		}
-		iterator begin(){
+		iterator begin()noexcept{
 			return{this,lsiz};
 		}
-		const_iterator begin()const{
+		const_iterator begin()const noexcept{
 			return{this,lsiz};
 		}
 		long long capacity_back()const{
@@ -358,7 +360,14 @@ namespace __devect_namespace{
 		    dat=0;
 		    rsiz=-1;
 		}
-		devect(long long count){
+		devect(devect&&x)noexcept{
+			len=x.len;
+			lsiz=x.lsiz;
+			rsiz=x.rsiz;
+			dat=x.dat;
+			x.dat=0;
+		}
+		devect(long long count)noexcept{
 			lsiz=0;
 			rsiz=count-1;
 			dat=new Type[len=count];
@@ -387,7 +396,7 @@ namespace __devect_namespace{
 				dat=tmp;
 			}
 			memmove(dat+position.sub+1,dat+position.sub,sizeof(Type)*(dat+rsiz-position));
-			dat[position.sub]=Type(args...);
+			new(dat+position.sub)Type(args...);
 			return{this,position.sub};
 		}
 		template<typename...Types>
@@ -397,7 +406,7 @@ namespace __devect_namespace{
 				delete[]dat;
 				dat=tmp;
 			}
-			dat[rsiz]=Type(args...);
+			new(dat+rsiz)Type(args...);
 		}
 		template<typename...Types>
 		void emplace_front(Types&&...args){
@@ -408,7 +417,7 @@ namespace __devect_namespace{
 				len=len<<1|1;
 				dat=tmp;
 		    }
-			dat[lsiz]=Type(args...);
+			new(dat+lsiz)Type(args...);
 		}
 		bool empty()const{
 			return rsiz<lsiz;
@@ -454,40 +463,49 @@ namespace __devect_namespace{
 			return{this,position.sub};
 		}
 		void insert(const_iterator position,long long count,const Type&value){
+			old_size=rsiz-lsiz+1;
 			if((rsiz+=count)>=len){
-                memcpy((tmp=new Type[len=rsiz<<1])+lsiz,dat+lsiz,sizeof(Type)*(rsiz-lsiz));
+                memcpy((tmp=new Type[len=rsiz<<1])+lsiz,dat+lsiz,sizeof(Type)*old_size);
 				delete[]dat;
 				dat=tmp;
 			}
-			memmove(dat+position.sub+count,dat+position.sub,sizeof(Type)*(dat+rsiz-position-count+1));
+			memmove(dat+position.sub+count,dat+position.sub,sizeof(Type)*(old_size-(position.sub-lsiz)));
 			for(long long i=0;i<count;i++){
                 dat[position.sub+i]=value;
 			}
 		}
-		long long max_size(){
-		    return LONG_LONG_MAX;
-		}
-		Type&operator[](long long position){
-		    return dat[lsiz+position];
-		}
-		const Type&operator[](long long position)const{
-		    return dat[lsiz+position];
+		template<typename InputIt>
+		iterator insert(const_iterator position,InputIt first,InputIt last){
+			count=last-first;
+			old_size=rsiz-lsiz+1;
+			if((rsiz+=count)>=len){
+                memcpy((tmp=new Type[len=rsiz<<1])+lsiz,dat+lsiz,sizeof(Type)*old_size);
+				delete[]dat;
+				dat=tmp;
+			}
+			memmove(dat+position.sub+count,dat+position.sub,sizeof(Type)*(old_size-(position.sub-lsiz)));
+			for(Type*i=dat+position.sub;first!=last;*(i++)=*(first++));
+			return{this,position.sub};
 		}
 		devect&operator=(const devect&right){
-		    delete[]dat;
-		    lsiz=0;
-		    rsiz=right.rsiz-right.lsiz;
-		    dat=new Type[len=rsiz+1];
-		    memcpy(dat,right.dat+right.lsiz,sizeof(Type)*len);
-		    return*this;
+			lsiz=0;
+			dat=new Type[len=(rsiz=right.rsiz-right.lsiz)+1];
+			memcpy(dat,right.dat+right.lsiz,sizeof(Type)*len);
+			return*this;
 		}
 		devect&operator=(devect&&right){
-		    delete[]dat;
-		    lsiz=0;
-		    rsiz=right.rsiz-right.lsiz;
-		    dat=new Type[len=rsiz+1];
-		    memcpy(dat,right.dat+right.lsiz,sizeof(Type)*len);
+			len=right.len;
+			lsiz=right.lsiz;
+			rsiz=right.rsiz;
+			dat=right.dat;
+			right.dat=0;
 		    return*this;
+		}
+		Type&operator[](long long x){
+			return dat[lsiz+x];
+		}
+		const Type&operator[](long long x)const{
+			return dat[lsiz+x];
 		}
 		void pop_back(){
 		    rsiz--;
@@ -550,17 +568,21 @@ namespace __devect_namespace{
 		    return{this,lsiz-1};
 		}
 		void reserve_back(long long count){
-            memcpy((tmp=new Type[len=lsiz+count])+lsiz,dat+lsiz,sizeof(Type)*(rsiz-lsiz+1));
-            delete[]dat;
-            dat=tmp;
+			if(count>len-lsiz){
+				memcpy((tmp=new Type[len=lsiz+count])+lsiz,dat+lsiz,sizeof(Type)*(rsiz-lsiz+1));
+				delete[]dat;
+				dat=tmp;
+			}
 		}
 		void reserve_front(long long count){
-            memcpy((tmp=new Type[len+count-rsiz-1])+lsiz+count-rsiz-1,dat+lsiz,sizeof(Type)*(rsiz-lsiz+1));
-            delete[]dat;
-            lsiz+=count-rsiz-1;
-            len+=count-rsiz-1;
-            rsiz=count-1;
-            dat=tmp;
+			if(count>rsiz+1){
+				memcpy((tmp=new Type[len+count-rsiz-1])+lsiz+count-rsiz-1,dat+lsiz,sizeof(Type)*(rsiz-lsiz+1));
+				delete[]dat;
+				lsiz+=count-rsiz-1;
+				len+=count-rsiz-1;
+				rsiz=count-1;
+				dat=tmp;
+			}
 		}
 		void resize_back(long long new_size){
 		    memcpy(tmp=new Type[len=new_size],dat+lsiz,sizeof(Type)*min(new_size,rsiz-lsiz+1));
