@@ -13,4 +13,4 @@ It combines the advantage of std::deque and std::vector - you can push/pop at th
 
 ```pop_front_element()```Deletes the element at the begin of the vector and return it.
 ## Why "devect"?
-It stands for Double Ended VECTor.
+It stands for Double Ended VECTor, just like Double Ended QUEue.
